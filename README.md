@@ -22,10 +22,9 @@ To develop this code, you must have minimal Javascript dev experience
  - Yarn installed, download most recent version at https://classic.yarnpkg.com/en/docs/install/#mac-stable
  - Git for the command line https://git-scm.com/downloads
 
- 
 ### Deployment 
  - Install the EC CLI (Elastic Beanstalk Command Line Interface) https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
-    - More instructions found here https://github.com/aws/aws-elastic-beanstalk-cli-setup
+    - More instructions found here https://github.com/aws/aws-elastic-beanpython ./aws-elastic-beanstalk-cli-setup/scripts/ebcli_installer.pystalk-cli-setup
     - This is tricky, on Mac make sure your Xcode Command Line Tools are installed https://www.embarcadero.com/starthere/xe5/mobdevsetup/ios/en/installing_the_commandline_tools.html
  
  ## Startup

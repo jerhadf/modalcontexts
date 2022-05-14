@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>Modality Study</title>
+        <title>Modal Contexts Study</title>
         <script src="jspsych-6.1.0/jspsych.js"></script>
         <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
         <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
@@ -29,35 +29,32 @@
         var timeline = [];
     
         //Global variables
-        VIGNETTE_AMOUNT = 10;
-        var q_array = jsPsych.randomization.sampleWithoutReplacement([vignettes.Heinz, vignettes.Brian, vignettes.Josh, vignettes.Mary, vignettes.Liz, vignettes.Brad, vignettes.Sam, vignettes.Sara, vignettes.Bob, vignettes.Emily], VIGNETTE_AMOUNT);
+        vignettes = [vignettes.Alba, vignettes.Eoin, vignettes.Triss, vignettes.Alberto, vignettes.Miriam, vignettes.Ae8056, vignettes.Gerig, vignettes.You1, vignettes.Azrael, vignettes.Kiki, vignettes.Betty, vignettes.You2, vignettes.You3, vignettes.You4, vignettes.Elysia];
+        VIGNETTE_AMOUNT = vignettes.length;
+        var q_array = jsPsych.randomization.sampleWithoutReplacement(, VIGNETTE_AMOUNT);
         var shuffled_modal = jsPsych.randomization.sampleWithoutReplacement(["improbable", "immoral", "irrational", "impossible", "possible"], 5)[0];
         q_i = 0;
         var shuffled_q = jsPsych.randomization.sampleWithoutReplacement([]);
-        var bai_options = ["Not at all", "Mildly – but it didn’t bother me much", "Moderately – it wasn’t pleasant at times", "Severely – it bothered me a lot"];
+        var bai_options = ["Extremely Familiar", "Very Familiar", "Familiar", "Unfamiliar", "Very Unfamiliar", "Extremely Unfamiliar"];
         var crt_options1 = jsPsych.randomization.sampleWithoutReplacement(["1 cent", "5 cents", "9 cents", "10 cents"]);
-        var crt_options2 = jsPsych.randomization.sampleWithoutReplacement(["5 minutes", "20 minutes", "100 minutes", "500 minutes"]);
-        var crt_options3 = jsPsych.randomization.sampleWithoutReplacement(["12 days", "24 days", "36 days", "47 days"]);
-        var crt_options4 = jsPsych.randomization.sampleWithoutReplacement(["3 days", "4 days", "9 days", "12 days"]);
-        var crt_options5 = jsPsych.randomization.sampleWithoutReplacement(["1 student", "15 students", "29 students", "30 students"]);
-        var crt_options6 = jsPsych.randomization.sampleWithoutReplacement(["$0", "$10", "$20", "$30"]);
-        var crt_options7 = jsPsych.randomization.sampleWithoutReplacement(["has lost money.", "has broken even in the stock market.", "is ahead of where he began.", "it cannot be determined."]);
         //tracks the name of curr vignette 
         var curr_vign_name = null;
-        //create dictionary that will be used to effectivley determine the modal type
+        //create dictionary that will be used to determine modal type
         var dict = new Map()
     
         
         /**
          * @ Param: no parameters. This method simply bulds up a dictionary mapping person, to modal type, to stimulus within each modal type
          * This is useful for when we care about the modal type of our stimulus
+
+         # Unused for modal contexts study
          */ 
         build_dict = () => {
             q_array.forEach( vignette => {
                 //iterate thru each name
                dict.set(vignette.name, new Map());
                var possible_modals = ["improbable", "immoral", "irrational", "impossible", "possible"];
-               //iterate thru each modal 
+               //iterate thru each modal
                possible_modals.forEach(modal => {
                    //add empty array if the modal hasn't been added yet
                    if (dict.get(vignette.name).get(modal) == null){
@@ -101,7 +98,7 @@
         /* Consent form for the study*/
         var consent = {
             type: 'html-button-response',
-            stimulus: "<DIV align='left'><div>&nbsp;</div><div>Please consider this information carefully before deciding whether to participate in this research.</div><div>&nbsp;</div><div>The purpose of this research is to examine which factors influence social judgment and decision-</div><div>making. You will be asked to make judgements about individuals and actions in social scenarios.</div><div>We are simply interested in your judgement. The study will take less than 1 hour to complete,</div><div>and you will receive less than $20 on Amazon Mechanical Turk. Your compensation and time</div><div>commitment are specified in the study description. There are no anticipated risks associated with</div><div>participating in this study. The effects of participating should be comparable to those you would</div><div>ordinarily experience from viewing a computer monitor and using a mouse or keyboard for a</div><div>similar amount of time. At the end of the study, we will provide an explanation of the questions</div><div>that motivate this line of research and will describe the potential implications.</div><div>&nbsp;</div><div>Your participation in this study is completely voluntary and you may refuse to participate or you</div><div>may choose to withdraw at any time without penalty or loss of benefits to you which are</div><div>otherwise entitled. Your participation in this study will remain confidential. No personally</div><div>identifiable information will be associated with your data. Also, all analyses of the data will be</div><div>averaged across all the participants, so your individual responses will never be specifically</div><div>analyzed.</div><div>&nbsp;</div><div>If you have questions or concerns about your participation or payment, or want to request a</div><div>summary of research findings, please contact Dr. Jonathan Phillips at</div><div><a href=mailto:Jonathan.S.Phillips@dartmouth.edu>Jonathan.S.Phillips@dartmouth.edu</a>.</div><div>&nbsp;</div><div>Please save a copy of this form for your records.</div><div>&nbsp;</div></DIV><div>Agreement:</div><DIV align='left'><div>The nature and purpose of this research have been sufficiently explained and I agree to</div><div>participate in this study. I understand that I am free to withdraw at any time without incurring</div><div>any penalty. Please consent by clicking the button below to continue. Otherwise, please exit the</div><div>study at any time.</div><div>&nbsp;</div></DIV>",
+            stimulus: "<DIV align='left'><div>&nbsp;</div><div>Please consider this information carefully before deciding whether to participate in this research.</div><div>&nbsp;</div><div>The purpose of this research is to examine which factors influence social judgment and decision-</div><div>making. You will be asked to make judgements about individuals and actions in scenarios.</div><div>We are simply interested in your judgement. The study will take less than 1 hour to complete,</div><div>and you will receive less than $20 on Amazon Mechanical Turk. Your compensation and time</div><div>commitment are specified in the study description. There are no anticipated risks associated with</div><div>participating in this study. The effects of participating should be comparable to those you would</div><div>ordinarily experience from viewing a computer monitor and using a mouse or keyboard for a</div><div>similar amount of time. At the end of the study, we will provide an explanation of the questions</div><div>that motivate this line of research and will describe the potential implications.</div><div>&nbsp;</div><div>Your participation in this study is completely voluntary and you may refuse to participate or you</div><div>may choose to withdraw at any time without penalty or loss of benefits to you which are</div><div>otherwise entitled. Your participation in this study will remain confidential. No personally</div><div>identifiable information will be associated with your data. Also, all analyses of the data will be</div><div>averaged across all the participants, so your individual responses will never be specifically</div><div>analyzed.</div><div>&nbsp;</div><div>If you have questions or concerns about your participation or payment, or want to request a</div><div>summary of research findings, please contact Dr. Jonathan Phillips at</div><div><a href=mailto:Jonathan.S.Phillips@dartmouth.edu>Jonathan.S.Phillips@dartmouth.edu</a>.</div><div>&nbsp;</div><div>Please save a copy of this form for your records.</div><div>&nbsp;</div></DIV><div>Agreement:</div><DIV align='left'><div>The nature and purpose of this research have been sufficiently explained and I agree to</div><div>participate in this study. I understand that I am free to withdraw at any time without incurring</div><div>any penalty. Please consent by clicking the button below to continue. Otherwise, please exit the</div><div>study at any time.</div><div>&nbsp;</div></DIV>",
             choices: ['Submit'],
             data:{
                 internal_type: "consent"
@@ -133,65 +130,23 @@
         var instructions = {
             type: "html-keyboard-response",
             stimulus: "<h2> Instructions</h2>" +
-                "<p>In this study, we'd like you to make judgments about whether something is possible or impossible. To indicate that something " +
-                "is possible, please press the [f] key; to indicate that something is impossible, please press the [j] key. To get you used to this, " +
-                "you will first go through a warm-up phase. On these trials, press [f] if you see the word 'Possible' and [j] if you see the word " +
-                "'Impossible.'' ***Please take your time and answer as correctly as possible.*** </p>" +
+                "<p>In this study, we'd like you to generate potential responses to a scenario. you will be presented with" +
+                "a series of situations. Read the descriptions carefully, and then respond with the first possible responses you think of." +
+                " ***Please take your time and answer as thoroughly as possible.*** </p>" +
                 "<p>Press any key to continue</p>",
         };
         timeline.push(instructions);
     
         //-------------------------FAMILIARIZATION TRIAL-------------------------------
-    
-        //possible choices to categorize/train subject to hit the right keys
-        var test_stimuli = [{
-            stimulus: "Possible",
-            correct_ans: 70,
-            correct_response: 'F',
-            data: {
-                test_part: 'test',
-                correct_response: 'F'
-            }
-        }, {
-            stimulus: "Impossible",
-            correct_ans: 74,
-            correct_response: 'J',
-            data: {
-                test_part: 'test',
-                correct_response: 'J'
-            }
-        }];
-    
-        //training trial to familiarize subject with hitting the right keys
-        var training = {
-            type: 'categorize-html',
-            stimulus: jsPsych.timelineVariable('stimulus'),
-            key_answer: jsPsych.timelineVariable('correct_ans'),
-            text_answer: jsPsych.timelineVariable('stimulus'),
-            choices: [70, 74],
-            correct_text: "<p class='prompt'>Correct, keep going.</p>",
-            incorrect_text: function() {
-                var html = "<p class='prompt'>That's not right %ANS% is [ " + jsPsych.timelineVariable('correct_response')() + " ] .</p> <p>Please slow down and answer correctly.</p>";
-                return html;
-            },
-            prompt: "<p>Remember: press [f] for possible and [j] for impossible </p>",
-        }
-    
-        var learning_trial = {
-            timeline: [training],
-            timeline_variables: test_stimuli,
-            randomize_order: true,
-            //should be like 10
-            repetitions: 3, 
-        }
-        timeline.push(learning_trial);
+        
+        // not needed, remove - see Gokul study for how to do this if needed later
     
         //-------------------------TRIAL BEGINS HERE-------------------------------
     
         //actual testing begins here
         var vignette_instructions = {
             type: "html-keyboard-response",
-            stimulus: "<h2>In this part, you will read a story and then will be judging whether certain events are possible or impossible.</h2> <p>Press any key to continue</p>",
+            stimulus: "<h2>In this part, you will read a description of a scenario and then list possible responses to the prompt.</h2> <p>Press any key to continue</p>",
         }
         timeline.push(vignette_instructions);
     
