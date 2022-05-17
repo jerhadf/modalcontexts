@@ -1,6 +1,5 @@
 
 <html>
-
     <head>
         <title>Modal Contexts Study</title>
         <script src="jspsych-6.1.0/jspsych.js"></script>
@@ -34,7 +33,6 @@
         var q_array = jsPsych.randomization.sampleWithoutReplacement(vignettes, VIGNETTE_AMOUNT);
         q_i = 0;
         var shuffled_q = [];
-        var fam_options = ["Extremely Familiar", "Very Familiar", "Familiar", "Unfamiliar", "Very Unfamiliar", "Extremely Unfamiliar"];
     
         //tracks the name of curr vignette 
         var curr_vign_name = null;
@@ -54,7 +52,6 @@
                 console.log(shuffled_q);
             }
         }
-    
     
         //-------------------------OPENING INSTRUCTIONS-------------------------------
     
@@ -104,14 +101,7 @@
         
         // I don't think this is needed, removed - see Gokul study for how to do this if needed later
     
-        //-------------------------TRIAL BEGINS HERE-------------------------------
-
-        // !! JEREMY TO DO - 
-        // add 10 prompts that are meant to be unfamiliar
-        // add 10 prompts that are meant to be familiar
-        // add multi-select questions to test answers (see how familiar/unfamiliar prompts are)
-        // for above - https://www.jspsych.org/7.2/plugins/survey-multi-select/
-        // test the survey using npm and make sure it works
+        //-------------------------TRIAL 1: FREE RESPONSE-------------------------------
 
         //actual testing begins here
         var vignette_instructions = {
@@ -130,7 +120,7 @@
                 // compiling all relavent questions
                 next_vign();
                 var story = "<h1>Please read the following story</h1> <br>" + q_array[q_i].vignette + "<br><br>";
-                var instruct = "<h1>Please list some options that could possibly be taken in this situation.";
+                var instruct = "<h1>Please list some options that could possibly be taken in this situation. Seperate each different option with a comma.</h1> <br>";
                 return [story, instruct];
             },
             show_clickable_nav: true
@@ -146,9 +136,12 @@
         
         //adds each prompt/vignette to the timeline
         function timeline_pusher() {
+            console.log("Evaluating question: " + q_i + "with name" +  q_array[q_i].name);
+            
+            // push instructions to timeline
             timeline.push(instruct);
 
-            // create current question 
+            // create current question as text prompt
             var curr_question = {
                 type: 'survey-text',
                 questions: [
@@ -164,6 +157,49 @@
 
         }
         timeline_pusher();
+
+
+        //-------------------------TRIAL 2: EVALUATION OF PROMPT FAMILIARITY-------------------------------
+
+        // reset the questions to the beginning of the array
+        q_i = 0;
+
+        // instructions for evaluation of participant familiarity with prompt 
+        var eval_instruct = {
+            type: 'instructions',
+            data: {
+                internal_type: "instructions"
+            },
+            pages: function() {
+                // compiling all relavent questions
+                next_vign();
+                var story = "<h1>Please read the following story</h1> <br>" + q_array[q_i].vignette + "<br><br>";
+                var instruct = "Use the sliding scale to indicate hwo familiar you are with the scenario.";
+                return [story, instruct];
+            },
+            show_clickable_nav: true
+        }
+    
+        // push questions to the timeline
+        function timeline_pusher_eval() {
+            timeline.push(eval_instruct);
+
+            var eval_trial = {
+                type: 'html-slider-response',
+                prompt: "Please rate how familiar you are with this scenario on the sliding scale above." + 
+                "Extremely familiar means that you encounter scenarios like this almost everyday. Extremely unfamiliar means that you have never even heard of a scenario like this.",
+                require_movement: true,
+                labels: ["Extremely Familiar", "Very Familiar", "Familiar", "Unfamiliar", "Very Unfamiliar", "Extremely Unfamiliar"],
+                data:{
+                    internal_type: "slider_response"
+                },
+            };
+                        
+            // add current question to timeline
+            timeline.push(eval_trial);
+
+        }
+        timeline_pusher_eval();
     
         //-------------------------TRIAL ENDS HERE-------------------------------
 
