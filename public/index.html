@@ -29,69 +29,32 @@
         var timeline = [];
     
         //Global variables
-        vignettes = [vignettes.Alba, vignettes.Eoin, vignettes.Triss, vignettes.Alberto, vignettes.Miriam, vignettes.Ae8056, vignettes.Gerig, vignettes.You1, vignettes.Azrael, vignettes.Kiki, vignettes.Betty, vignettes.You2, vignettes.You3, vignettes.You4, vignettes.Elysia];
+        vignettes = [vignettes.Alba, vignettes.Eoin, vignettes.Triss, vignettes.Alberto, vignettes.Miriam, vignettes.Ae8056, vignettes.Gerig, vignettes.You1, vignettes.Azrael, vignettes.Kiki, vignettes.Betty, vignettes.You2, vignettes.You3, vignettes.You4, vignettes.Elysia, vignettes.Tobi, vignettes.Duncan];
         VIGNETTE_AMOUNT = vignettes.length;
-        var q_array = jsPsych.randomization.sampleWithoutReplacement(, VIGNETTE_AMOUNT);
-        var shuffled_modal = jsPsych.randomization.sampleWithoutReplacement(["improbable", "immoral", "irrational", "impossible", "possible"], 5)[0];
+        var q_array = jsPsych.randomization.sampleWithoutReplacement(vignettes, VIGNETTE_AMOUNT);
         q_i = 0;
-        var shuffled_q = jsPsych.randomization.sampleWithoutReplacement([]);
-        var bai_options = ["Extremely Familiar", "Very Familiar", "Familiar", "Unfamiliar", "Very Unfamiliar", "Extremely Unfamiliar"];
-        var crt_options1 = jsPsych.randomization.sampleWithoutReplacement(["1 cent", "5 cents", "9 cents", "10 cents"]);
+        var shuffled_q = [];
+        var fam_options = ["Extremely Familiar", "Very Familiar", "Familiar", "Unfamiliar", "Very Unfamiliar", "Extremely Unfamiliar"];
+    
         //tracks the name of curr vignette 
         var curr_vign_name = null;
-        //create dictionary that will be used to determine modal type
-        var dict = new Map()
-    
-        
-        /**
-         * @ Param: no parameters. This method simply bulds up a dictionary mapping person, to modal type, to stimulus within each modal type
-         * This is useful for when we care about the modal type of our stimulus
 
-         # Unused for modal contexts study
-         */ 
-        build_dict = () => {
-            q_array.forEach( vignette => {
-                //iterate thru each name
-               dict.set(vignette.name, new Map());
-               var possible_modals = ["improbable", "immoral", "irrational", "impossible", "possible"];
-               //iterate thru each modal
-               possible_modals.forEach(modal => {
-                   //add empty array if the modal hasn't been added yet
-                   if (dict.get(vignette.name).get(modal) == null){
-                        dict.get(vignette.name).set(modal, []);
-                   }
-                   //add all of the stimulus
-                   vignette[modal].forEach( stimulus => {
-                    dict.get(vignette.name).get(modal).push(stimulus)
-                   });
-               });
-            });
-        }
-        build_dict();
-        // console.log(dict);
-        // var current_modal_order = [];
         //function to move to the next vignette
         function next_vign() {
             if (q_i == VIGNETTE_AMOUNT) {
                 return false;
             }
-            //types
-            var possible_modals = ["improbable", "immoral", "irrational", "impossible", "possible"];
-            //shuffle them (no repeats)
-            possible_modals = jsPsych.randomization.repeat(possible_modals, 1);
-            // current_modal_order = possible_modals
-            possible_modals.forEach(modal => {
+            else {
+                q_i++;
                 //get the current vignette name 
                 curr_vign_name = q_array[q_i].name;
-                q_array[q_i][modal].forEach(element => shuffled_q.push(element));
-                current_modal = modal;
-            });
-            //make sure questions match
-            console.log("testing questions");
-            console.log(shuffled_q);
+                q_array[q_i].forEach(element => shuffled_q.push(element));
+                shuffled_q = jsPsych.randomization.shuffle(shuffled_q);
+                //make sure questions match
+                console.log(shuffled_q);
+            }
         }
     
-        
     
         //-------------------------OPENING INSTRUCTIONS-------------------------------
     
@@ -130,7 +93,7 @@
         var instructions = {
             type: "html-keyboard-response",
             stimulus: "<h2> Instructions</h2>" +
-                "<p>In this study, we'd like you to generate potential responses to a scenario. you will be presented with" +
+                "<p>In this study, we'd like you to generate potential responses to a scenario. You will be presented with" +
                 "a series of situations. Read the descriptions carefully, and then respond with the first possible responses you think of." +
                 " ***Please take your time and answer as thoroughly as possible.*** </p>" +
                 "<p>Press any key to continue</p>",
@@ -139,92 +102,25 @@
     
         //-------------------------FAMILIARIZATION TRIAL-------------------------------
         
-        // not needed, remove - see Gokul study for how to do this if needed later
+        // I don't think this is needed, removed - see Gokul study for how to do this if needed later
     
         //-------------------------TRIAL BEGINS HERE-------------------------------
-    
+
+        // !! JEREMY TO DO - 
+        // add 10 prompts that are meant to be unfamiliar
+        // add 10 prompts that are meant to be familiar
+        // add multi-select questions to test answers (see how familiar/unfamiliar prompts are)
+        // for above - https://www.jspsych.org/7.2/plugins/survey-multi-select/
+        // test the survey using npm and make sure it works
+
         //actual testing begins here
         var vignette_instructions = {
             type: "html-keyboard-response",
             stimulus: "<h2>In this part, you will read a description of a scenario and then list possible responses to the prompt.</h2> <p>Press any key to continue</p>",
         }
         timeline.push(vignette_instructions);
-    
-        function get_modal_type(stimulus){
-            var modal = null;
-            dict.get(curr_vign_name).forEach((values, key) =>{
-                    // console.log(dict.get(curr_vign_name));
-                    // console.log(values);
-                    // console.log(key);
-                   values.forEach(sentence => {
-                        if (sentence == stimulus){
-                            //this is the modal type
-                            // console.log(key);
-                            modal = key;
-                        } 
-                   });
-            });
-            return modal;
-        }
-        //trial that shuffles through all modal options
-        //this one is for the 4500ms trials
-        choices_slow = {
-            type: 'html-keyboard-response',
-            trial_duration: 4500,
-            stimulus: function() {
-                return shuffled_q[0];
-            },
-            choices: [70, 74],
-            on_finish: function(data) {
-                //look further 
-                data.stimulus = shuffled_q[0];
-                //find the modal type 
-                var modal_type = get_modal_type(shuffled_q[0]);
-                data.modal_type = modal_type;
-                data.speed = "slow";
-                data.vignette = curr_vign_name;
-                data.internal_type = "stimulus";
-                if (data.key_press == 70) {
-                    data.answered = "possible";
-                } else if (data.key_press == 74){
-                    data.answered = "impossible";
-                } else {
-                    data.answered = "NA";
-                }
-            }
-        }
-        
-        //this one is for the 1500ms trials
-        choices_fast = {
-            type: 'html-keyboard-response',
-            trial_duration: 1500,
-            stimulus: function() {
-                return shuffled_q[0];
-            },
-            choices: [70, 74],
-            on_finish: function(data) {
-                //tracks stimulus
-                data.stimulus = shuffled_q[0];
-                //tracks modal type for the stimulus
-                var modal_type = get_modal_type(shuffled_q[0]);
-                data.modal_type = modal_type;
-                //tracks speed
-                data.speed = "fast";
-                //tracks vignette name
-                data.vignette = curr_vign_name;
-                data.internal_type = "stimulus";
-                //tracks answer 
-                if (data.key_press == 70) {
-                    data.answered = "possible";
-                } else if (data.key_press == 74) {
-                    data.answered = "impossible";
-                } else {
-                    data.answered = "NA";
-                }
-            }
-        }
-    
-        //instructions prior to modal questions
+
+        //instructions prior to questions 
         var instruct = {
             type: 'instructions',
             data: {
@@ -233,8 +129,8 @@
             pages: function() {
                 // compiling all relavent questions
                 next_vign();
-                var story = "<h1>Please read the following story</h1> <br>" + q_array[q_i].vignette + "<br><br>" + q_array[q_i].prompt;
-                var instruct = "<h1>Given " + q_array[q_i].name + "'s situation, please tell us whether it is possible or impossible for " + q_array[q_i].name + " to do the following things.</h1> <br>press [next] when you are ready to begin.";
+                var story = "<h1>Please read the following story</h1> <br>" + q_array[q_i].vignette + "<br><br>";
+                var instruct = "<h1>Please list some options that could possibly be taken in this situation.";
                 return [story, instruct];
             },
             show_clickable_nav: true
@@ -247,422 +143,31 @@
             choices: jsPsych.NO_KEYS,
             trial_duration: 500,
         }
-    
-        //each individual stimulus for the possible things people can do
-        //this one uses 1500ms trials
-        var modalq_fast = {
-            timeline: [choices_fast, pause],
-            loop_function: function(data) {
-                // maybe >= 0
-                if (shuffled_q.length > 1) {
-                    //reducing size array
-                    shuffled_q.shift();
-                    return true;
-                } else {
-                    //testing
-                    shuffled_q.shift();
-                    console.log("shuffedled_q should be empty here");
-                    console.log(shuffled_q);
-                    q_i++;
-                    return false;
-                }
-            }
-        }
-        //this one uses 4500ms trials
-        var modalq_slow = {
-            timeline: [choices_slow, pause],
-            loop_function: function(data) {
-                if (shuffled_q.length > 1) {
-                    shuffled_q.shift();
-                    return true;
-                } else {
-                    //testing
-                    shuffled_q.shift();
-                    console.log("shuffedled_q should be empty here");
-                    console.log(shuffled_q);
-                    q_i++;
-                    return false;
-                }
-            }
-        }
-    
-        //generates a random integer between min and max inclusive
-        function getRndInteger(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) ) + min;
-        }
         
         //adds each prompt/vignette to the timeline
         function timeline_pusher() {
-            var order = getRndInteger(0,1);
-            //should be vign amount 
-            for (var i = 0; i < 1; i++) {
-                timeline.push(instruct);
-                if (order==0){
-                    if (i<5){
-                        timeline.push(modalq_slow);
-                    } else {
-                    timeline.push(modalq_fast); 
-                    }
-                } else{
-                    if (i<5){
-                        timeline.push(modalq_fast);
-                    } else {
-                    timeline.push(modalq_slow); 
-                    }
-                }
-            }
+            timeline.push(instruct);
+
+            // create current question 
+            var curr_question = {
+                type: 'survey-text',
+                questions: [
+                    {prompt: q_array[q_i].prompt, required: true},
+                ],
+                data:{
+                    internal_type: "question"
+                },
+            };
+            
+            // add current question to timeline
+            timeline.push(curr_question);
+
         }
         timeline_pusher();
     
-    
-        var crt = {
-            type: 'survey-multi-select',
-            preamble: "<br><br>You will see on this page several items that vary in difficulty. Answer as many as you can.",
-            data: {
-                internal_type: "crt"
-            },
-            questions: [{
-                prompt: "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
-                name: 'crt_1',
-                options: crt_options1,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "If it takes 5 machines 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?",
-                name: 'crt_2',
-                options: crt_options2,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "In a lake, there is a patch of lily pads. Every day, the patch doubles in size. If it takes 48 days for the patch to cover the entire lake, how long would it take for the patch to cover half of the lake?",
-                name: 'crt_3',
-                options: crt_options3,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "If John can drink one barrel of water in 6 days, and Mary can drink one barrel of water in 12 days, how long would it take them to drink one barrel of water together?",
-                name: 'crt_4',
-                options: crt_options4,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Jerry received both the 15th highest and the 15th lowest mark in the class. How many students are in the class?",
-                name: 'crt_5',
-                options: crt_options5,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "A man buys a pig for $60, sells it for $70, buys it back for $80, and sells it finally for $90. How much has he made?",
-                name: 'crt_6',
-                options: crt_options6,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Simon decided to invest $8,000 in the stock market one day early in 2008. Six months after he invested, on July 17, the stocks he had purchased were down 50%. Fortunately for Simon, from July 17 to October 17, the stocks he had purchased went up 75%. At this point, Simon:",
-                name: 'crt_7',
-                options: crt_options7,
-                required: true,
-                horizontal: true
-            }, ]
-        }
-        timeline.push(crt);
-    
-        var bai = {
-            type: 'survey-multi-select',
-            preamble: "<br><br>Below is a list of common symptoms of anxiety. Please carefully read each item in the list. Indicate how much you have been bothered by that symptom during the past month, including today, by circling the number in the corresponding space in the column next to each symptom.",
-            data: {
-                internal_type: "bai"
-            },
-            questions: [{
-                prompt: "Numbness or tingling",
-                name: 'bai_1',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Feeling hot",
-                name: 'bai_2',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Wobbliness in legs",
-                name: 'bai_3',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Unable to relax",
-                name: 'bai_4',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Fear of worst happening",
-                name: 'bai_5',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Dizzy or lightheaded",
-                name: 'bai_6',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Heart pounding/racing",
-                name: 'bai_7',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Unsteady",
-                name: 'bai_8',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Terrified or afraid",
-                name: 'bai_9',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Nervous",
-                name: 'bai_10',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Feeling of choking",
-                name: 'bai_11',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Hands trembling",
-                name: 'bai_12',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Shaky/unsteady",
-                name: 'bai_13',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Fear of losing control",
-                name: 'bai_14',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Difficulty in breathing",
-                name: 'bai_15',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Fear of dying",
-                name: 'bai_16',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Scared",
-                name: 'bai_17',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Indigestion",
-                name: 'bai_18',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Faint/lightheaded",
-                name: 'bai_19',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Face flushed",
-                name: 'bai_20',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Hot/cold sweats",
-                name: 'bai_21',
-                options: bai_options,
-                required: true,
-                horizontal: true
-            }, ]
-        }
-        timeline.push(bai);
-    
-        // as of rn we have removed question 9 (suicidal thoughts or wishes), so if we ever add it back change below to say '...Item 16 (Cha...or Item 9 (Cha...
-        // additionally i will create variables corresponding to this question but comment them out for the time being for orginizational purposes
-        var bdi = {
-            type: 'survey-multi-select',
-            data: {
-                internal_type:"bdi"
-            },
-            preamble: "<br><br> This questionnaire consists of 20 groups of statements. Please read each group of statements carefully, and then pick out the <b> one statement </b> "
-                + "in each group that best describes the way you have been feeling during the <b> past two weeks, including today </b>. Select the box corresponding to the "
-                + "statement you have picked. If several satements in the group seem to apply equally well, select the highest number from that group. Be sure you do not choose "
-                + "more than one statement from any group, including Item 15 (Changes in sleeping pattern) or Item 17 (Changes in Appetite).",
-            questions: [{
-                prompt: "Sadness",
-                name: 'bdi_1',
-                options: bdi_options.Sadness,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Pessimism",
-                name: 'bdi_2',
-                options: bdi_options.Pessimism,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Past Failure",
-                name: 'bdi_3',
-                options: bdi_options.PastFailure,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Loss of Pleasure",
-                name: 'bdi_4',
-                options: bdi_options.LossofPleasure,
-                required: true,
-                horizontal: true
-            },{
-                prompt: "Guilty Feelings",
-                name: 'bdi_5',
-                options: bdi_options.GuiltyFeelings,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Punishment Feelings",
-                name: 'bdi_6',
-                options: bdi_options.PunishmentFeelings,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Self-Dislike",
-                name: 'bdi_7',
-                options: bdi_options.SelfDislike,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Self-Criticalness",
-                name: 'bdi_8',
-                options: bdi_options.SelfCriticalness,
-                required: true,
-                horizontal: true
-            },
-                {
-                prompt: "Crying",
-                name: 'bdi_10',
-                options: bdi_options.Crying,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Agitation",
-                name: 'bdi_11',
-                options: bdi_options.Agitation,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Loss of Interest",
-                name: 'bdi_12',
-                options: bdi_options.LossofInterest,
-                required: true,
-                horizontal: true
-            },{
-                prompt: "Indecisiveness",
-                name: 'bdi_13',
-                options: bdi_options.Indecisiveness,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Worthlessness",
-                name: 'bdi_14',
-                options: bdi_options.Worthlessness,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Loss of Energy",
-                name: 'bdi_15',
-                options: bdi_options.LossofEnergy,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Changes in Sleeping Pattern",
-                name: 'bdi_16',
-                options: bdi_options.ChangesinSleepingPattern,
-                required: true,
-                horizontal: true
-            },{
-                prompt: "Irratability",
-                name: 'bdi_17',
-                options: bdi_options.Irratability,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Changes in Appetite",
-                name: 'bdi_18',
-                options: bdi_options.ChangesinAppetite,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Concentration Difficulty",
-                name: 'bdi_19',
-                options: bdi_options.ConcentrationDifficulty,
-                required: true,
-                horizontal: true
-            }, {
-                prompt: "Tiredness or Fatigue",
-                name: 'bdi_20',
-                options: bdi_options.TirednessorFatigue,
-                required: true,
-                horizontal: true
-            },{
-                prompt: "Loss of Interest in Sex",
-                name: 'bdi_21',
-                options: bdi_options.LossofInterestinSex,
-                required: true,
-                horizontal: true
-            }, ]
-        }
-        timeline.push(bdi);
-    
-    
-    
-    
-        //shows the data collected => REMOVE BEFORE DEPLOYING
-        var debrief_block = {
-            type: "html-keyboard-response",
-            stimulus: function() {
-    
-                var trials = jsPsych.data.get().filter({
-                    test_part: 'test'
-                });
-                var correct_trials = trials.filter({
-                    correct: true
-                });
-                var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
-                var rt = Math.round(correct_trials.select('rt').mean());
-    
-                return "<p>You responded correctly on " + accuracy + "% of the trials.</p>" +
-                    "<p>Your average response time was " + rt + "ms.</p>" +
-                    "<p>Press any key to complete the experiment. Thank you!</p>";
-    
-            }
-        };
-        timeline.push(debrief_block);
+        //-------------------------TRIAL ENDS HERE-------------------------------
+
+        // end of experiment 
         /* Function to post the data*/
         function save_data(data) {
             url = location+"data"
@@ -671,6 +176,7 @@
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.send(JSON.stringify({data}));
         }
+
         /* start the experiment */
         jsPsych.init({
             timeline: timeline,

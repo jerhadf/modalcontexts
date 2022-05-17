@@ -2,7 +2,7 @@
   "name": "psych-survey",
   "version": "1.0.0",
   "main": "server.js",
-  "repository": "https://github.com/nathan-m-schneider-22/psych-survey.git",
+  "repository": "https://github.com/jerhadf/modalcontexts/",
   "author": "nathan-m-schneider-22 <nathan.m.schneider.22@dartmouth.edu>",
   "license": "MIT",
   "scripts": {

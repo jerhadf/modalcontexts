@@ -54,3 +54,7 @@ app.post('/data', (req, res) => {
 const PORT = process.env.PORT || 9090;
 app.listen(PORT);
 console.log(`listening on: ${PORT}`);
+
+process.on('uncaughtException', function (err) {
+  console.log(err);
+}); 
