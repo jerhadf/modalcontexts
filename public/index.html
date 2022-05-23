@@ -3,19 +3,18 @@
     <head>
         <title>Modal Contexts Study</title>
         <!-- IMPORT JSPSYCH & plugin- -->
-        <script src="jspsych/jspsych.js"></script>
-        <script src="jspsych/plugin-html-keyboard-response.js"></script>
-        <script src="jspsych/plugin-html-button-response.js"></script>
-        <script src="jspsych/plugin-instructions.js"></script>
-        <script src="jspsych/plugin-html-slider-response.js"></script>
-        <script src="jspsych/plugin-survey-text.js"></script>
+        <script src="jspsych/dist/jspsych.js"></script>
+        <script src="jspsych/dist/plugin-html-keyboard-response.js"></script>
+        <script src="jspsych/dist/plugin-html-button-response.js"></script>
+        <script src="jspsych/dist/plugin-instructions.js"></script>
+        <script src="jspsych/dist/plugin-html-slider-response.js"></script>
+        <script src="jspsych/dist/plugin-survey-text.js"></script>
         <!-- IMPORT JAVASCRIPT MODULES -->
         <script type="text/javascript" src="vignettes.js"></script>
         <script type="text/javascript" src="bdi_options.js"></script>
         <!--  IMPORT STYLESHEETS -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  
-        <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="/css/style.css">
+        <link href="jspsych/dist/jspsych.css" rel="stylesheet" type="text/css"/>
     </head>
     
     <body></body>
@@ -70,8 +69,6 @@
                 q_i++;
                 //get the current vignette name 
                 curr_vign_name = q_array[q_i].name;
-                q_array[q_i].forEach(element => shuffled_q.push(element));
-                shuffled_q = jsPsych.randomization.shuffle(shuffled_q);
                 //make sure questions match
                 console.log(shuffled_q);
             }
@@ -81,7 +78,7 @@
     
         /* Consent form for the study*/
         var consent = {
-            type: 'html-button-response',
+            type: jsPsychHtmlButtonResponse,
             stimulus: "<DIV align='left'><div>&nbsp;</div><div>Please consider this information carefully before deciding whether to participate in this research.</div><div>&nbsp;</div><div>The purpose of this research is to examine which factors influence social judgment and decision-</div><div>making. You will be asked to make judgements about individuals and actions in scenarios.</div><div>We are simply interested in your judgement. The study will take less than 1 hour to complete,</div><div>and you will receive less than $20 on Amazon Mechanical Turk. Your compensation and time</div><div>commitment are specified in the study description. There are no anticipated risks associated with</div><div>participating in this study. The effects of participating should be comparable to those you would</div><div>ordinarily experience from viewing a computer monitor and using a mouse or keyboard for a</div><div>similar amount of time. At the end of the study, we will provide an explanation of the questions</div><div>that motivate this line of research and will describe the potential implications.</div><div>&nbsp;</div><div>Your participation in this study is completely voluntary and you may refuse to participate or you</div><div>may choose to withdraw at any time without penalty or loss of benefits to you which are</div><div>otherwise entitled. Your participation in this study will remain confidential. No personally</div><div>identifiable information will be associated with your data. Also, all analyses of the data will be</div><div>averaged across all the participants, so your individual responses will never be specifically</div><div>analyzed.</div><div>&nbsp;</div><div>If you have questions or concerns about your participation or payment, or want to request a</div><div>summary of research findings, please contact Dr. Jonathan Phillips at</div><div><a href=mailto:Jonathan.S.Phillips@dartmouth.edu>Jonathan.S.Phillips@dartmouth.edu</a>.</div><div>&nbsp;</div><div>Please save a copy of this form for your records.</div><div>&nbsp;</div></DIV><div>Agreement:</div><DIV align='left'><div>The nature and purpose of this research have been sufficiently explained and I agree to</div><div>participate in this study. I understand that I am free to withdraw at any time without incurring</div><div>any penalty. Please consent by clicking the button below to continue. Otherwise, please exit the</div><div>study at any time.</div><div>&nbsp;</div></DIV>",
             choices: ['Submit'],
             data:{
@@ -92,7 +89,7 @@
     
         /* Collection of participant info*/
         var participant_info = {
-            type: 'survey-text',
+            type: jsPsychSurveyText,
             preamble: 'Please provide us with some demographic information.',
             questions: [
                 {prompt: "How old are you?", required: true}, 
@@ -112,12 +109,13 @@
     
         /* instructions */
         var instructions = {
-            type: "html-keyboard-response",
+            type: jsPsychHtmlButtonResponse,
+            choices: ['Continue'],
             stimulus: "<h2> Instructions</h2>" +
                 "<p>In this study, we'd like you to generate potential responses to a scenario. You will be presented with" +
-                "a series of situations. Read the descriptions carefully, and then respond with the first possible responses you think of." +
-                " ***Please take your time and answer as thoroughly as possible.*** </p>" +
-                "<p>Press any key to continue</p>",
+                "a series of situations. Read the descriptions carefully, and then respond with the first possible responses you think of.</p>" +
+                "<p>***Please take your time and answer as thoroughly as possible.*** </p>" +
+                "<p>Press the button to continue</p>",
         };
         timeline.push(instructions);
     
@@ -129,25 +127,22 @@
 
         //actual testing begins here
         var vignette_instructions = {
-            type: "html-keyboard-response",
+            type: jsPsychHtmlKeyboardResponse,
             stimulus: "<h2>In this part, you will read a description of a scenario and then list possible responses to the prompt.</h2> <p>Press any key to continue</p>",
         }
         timeline.push(vignette_instructions);
 
         //instructions prior to questions 
         var instruct = {
-            type: 'instructions',
+            type: jsPsychInstructions,
             data: {
                 internal_type: "instructions"
             },
             pages: function() {
                 // compiling all relavent questions
                 next_vign();
-                var story = "<h1>Please read the following story</h1> <br>" + q_array[q_i].vignette + "<br><br>";
-                // make 10 text boxes instead of comma seperate
-                // please tell us some things that [person name] could do in the situation
-                // add in the scenarios - 3 familiar and 9 unfamiliar scenarios
-                var instruct = "<h1>Please list some options that could possibly be taken in this situation. Seperate each different option with a comma.</h1> <br>";
+                var story = "<h1>Please read the following story:</h1> <br>" + q_array[q_i].vignette + "<br><br>";
+                var instruct = "<h1>Now, please list some options that could possibly be taken in this situation. You must list at least 3 options, but you may list up to 10 or more options.</h1> <br>";
                 return [story, instruct];
             },
             show_clickable_nav: true
@@ -155,33 +150,43 @@
     
         //short pause between each stimulus
         var pause = {
-            type: 'html-keyboard-response',
+            type: jsPsychHtmlKeyboardResponse,
             stimulus: "",
-            choices: jsPsych.NO_KEYS,
+            choices: "NO_KEYS",
             trial_duration: 500,
         }
         
         //adds each prompt/vignette to the timeline
         function timeline_pusher() {
-            console.log("Evaluating question: " + q_i + "with name" +  q_array[q_i].name);
-            
-            // push instructions to timeline
-            timeline.push(instruct);
+            console.log("Evaluating question " + q_i + " with name" +  q_array[q_i].name);
 
             // create current question as text prompt
             var curr_question = {
-                type: 'survey-text',
+                type: jsPsychSurveyText,
+                name: q_array[q_i].name,
+                preamble: q_array[q_i].vignette,
                 questions: [
-                    {prompt: q_array[q_i].prompt, required: true},
+                    {prompt: q_array[q_i].prompt, required: true, rows:2},
+                    {prompt: q_array[q_i].prompt, required: true, rows:2},
+                    {prompt: q_array[q_i].prompt, required: true, rows:2},
+                    {prompt: q_array[q_i].prompt, required: false, rows:2},
+                    {prompt: q_array[q_i].prompt, required: false, rows:2},
+                    {prompt: q_array[q_i].prompt, required: false, rows:2},
+                    {prompt: q_array[q_i].prompt, required: false, rows:2},
+                    {prompt: q_array[q_i].prompt, required: false, rows:2},
+                    {prompt: q_array[q_i].prompt, required: false, rows:2},
+                    {prompt: q_array[q_i].prompt, required: false, rows:2},
                 ],
                 data:{
                     internal_type: "question"
                 },
             };
             
+            // push instructions to timeline
+            timeline.push(instruct);
+
             // add current question to timeline
             timeline.push(curr_question);
-
         }
 
         timeline_pusher();
@@ -197,7 +202,7 @@
 
         // instructions for evaluation of participant familiarity with prompt 
         var eval_instruct = {
-            type: 'instructions',
+            type: jsPsychInstructions,
             data: {
                 internal_type: "instructions"
             },
@@ -217,7 +222,7 @@
 
             // not going to encounter situations exactly like this - situations that are similar 
             var eval_trial = {
-                type: 'html-slider-response',
+                type: jsPsychHtmlSliderResponse,
                 prompt: "Please rate how familiar you are with this scenario on the sliding scale above." + 
                 "Extremely familiar means that you encounter scenarios like this almost everyday. Extremely unfamiliar means that you have never even heard of a scenario like this.",
                 require_movement: true,
