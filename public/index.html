@@ -50,29 +50,21 @@
         /* create timeline */
         var timeline = [];
 
-        //Global variables
-        vignettes = [vignettes.Alba, vignettes.Eoin, vignettes.Triss, vignettes.Alberto, vignettes.Miriam, vignettes.Ae8056, vignettes.Gerig, vignettes.You1, vignettes.Azrael, vignettes.Kiki, vignettes.Betty, vignettes.You2, vignettes.You3, vignettes.You4, vignettes.Elysia, vignettes.Tobi, vignettes.Duncan];
-        VIGNETTE_AMOUNT = vignettes.length;
-        var q_array = jsPsych.randomization.sampleWithoutReplacement(vignettes, VIGNETTE_AMOUNT);
-        q_i = 0;
-        var shuffled_q = [];
-    
-        //tracks the name of curr vignette 
-        var curr_vign_name = null;
+        // get each of the items in the vignettes dictionary and save to a list of vignettes
+        var vignettes = Object.values(vignettes);
+        var vignettes_familiar = Object.values(vignettes_familiar);
+        // Global variables
+        console.log(vignettes)
+        console.log(vignettes_familiar)
 
-        //function to move to the next vignette
-        function next_vign() {
-            if (q_i == VIGNETTE_AMOUNT) {
-                return false;
-            }
-            else {
-                q_i++;
-                //get the current vignette name 
-                curr_vign_name = q_array[q_i].name;
-                //make sure questions match
-                console.log(shuffled_q);
-            }
-        }
+        vignette_names = [vignettes.Alba, vignettes.Eoin, vignettes.Triss, vignettes.Alberto, vignettes.Miriam, vignettes.Ae8056, 
+        vignettes.Gerig, vignettes.Yomi, vignettes.Azrael, vignettes.Kiki, vignettes.Betty, vignettes.Terry, vignettes.Gunther, 
+        vignettes.Aponi, vignettes.Elysia, vignettes.Tobi, vignettes.Duncan];
+
+        // randomly sample 10 vignettes from the set of unfamiliar vignettes
+        var q_array = jsPsych.randomization.sampleWithoutReplacement(vignettes, 10);
+        NUM = q_array.length;
+        q_i = 0; // initalize counter
     
         //-------------------------OPENING INSTRUCTIONS-------------------------------
     
@@ -112,120 +104,107 @@
             type: jsPsychHtmlButtonResponse,
             choices: ['Continue'],
             stimulus: "<h2> Instructions</h2>" +
-                "<p>In this study, we'd like you to generate potential responses to a scenario. You will be presented with" +
+                "<p>In this study, we'd like you to generate potential ways to respond to a scenario. You will be presented with  " +
                 "a series of situations. Read the descriptions carefully, and then respond with the first possible responses you think of.</p>" +
                 "<p>***Please take your time and answer as thoroughly as possible.*** </p>" +
                 "<p>Press the button to continue</p>",
         };
+
         timeline.push(instructions);
     
         //-------------------------FAMILIARIZATION TRIAL-------------------------------
         
         // I don't think this is needed, removed - see Gokul study for how to do this if needed later
     
-        //-------------------------TRIAL 1: FREE RESPONSE-------------------------------
+        //-------------------------TRIAL 1: POSSIBILITY GENERATION -------------------------------
 
-        //actual testing begins here
+        // actual testing begins here
         var vignette_instructions = {
             type: jsPsychHtmlKeyboardResponse,
-            stimulus: "<h2>In this part, you will read a description of a scenario and then list possible responses to the prompt.</h2> <p>Press any key to continue</p>",
+            stimulus: "<h2>In this part, you will read a description of a scenario and then list possible responses to the prompt.</h2>" + 
+                "<h3>You must list at least 3 options, but you may list up to 10 options.</h3>" +
+                "<p>Press any key to continue</p>",
         }
+
         timeline.push(vignette_instructions);
 
-        //instructions prior to questions 
-        var instruct = {
-            type: jsPsychInstructions,
-            data: {
-                internal_type: "instructions"
-            },
-            pages: function() {
-                // compiling all relavent questions
-                next_vign();
-                var story = "<h1>Please read the following story:</h1> <br>" + q_array[q_i].vignette + "<br><br>";
-                var instruct = "<h1>Now, please list some options that could possibly be taken in this situation. You must list at least 3 options, but you may list up to 10 or more options.</h1> <br>";
-                return [story, instruct];
-            },
-            show_clickable_nav: true
-        }
-    
-        //short pause between each stimulus
-        var pause = {
-            type: jsPsychHtmlKeyboardResponse,
-            stimulus: "",
-            choices: "NO_KEYS",
-            trial_duration: 500,
+        //function to move to the next vignette
+        function next_vign() {
+            if (q_i == NUM) {
+                return false;
+            }
+            else {
+                // get the current vignette name
+                var curr_vign_name = q_array[q_i].name;
+                console.log("Evaluating question " + q_i + " with name " +  q_array[q_i].name);
+                q_i++;
+            }
         }
         
         //adds each prompt/vignette to the timeline
-        function timeline_pusher() {
-            console.log("Evaluating question " + q_i + " with name" +  q_array[q_i].name);
-
+        function vignette_pusher() {
             // create current question as text prompt
             var curr_question = {
                 type: jsPsychSurveyText,
                 name: q_array[q_i].name,
-                preamble: q_array[q_i].vignette,
+                preamble: q_array[q_i].vignette + "<br><h4> Please list as many possible options as you can.</h4>",
                 questions: [
-                    {prompt: q_array[q_i].prompt, required: true, rows:2},
-                    {prompt: q_array[q_i].prompt, required: true, rows:2},
-                    {prompt: q_array[q_i].prompt, required: true, rows:2},
-                    {prompt: q_array[q_i].prompt, required: false, rows:2},
-                    {prompt: q_array[q_i].prompt, required: false, rows:2},
-                    {prompt: q_array[q_i].prompt, required: false, rows:2},
-                    {prompt: q_array[q_i].prompt, required: false, rows:2},
-                    {prompt: q_array[q_i].prompt, required: false, rows:2},
-                    {prompt: q_array[q_i].prompt, required: false, rows:2},
-                    {prompt: q_array[q_i].prompt, required: false, rows:2},
+                    // list the questions - three required, 7 optional text boxes
+                    {prompt: q_array[q_i].prompt, required: true, rows:1},
+                    {prompt: "", required: true, rows:1},
+                    {prompt: "", required: true, rows:1},
+                    {prompt: "", required: false, rows:1},
+                    {prompt: "", required: false, rows:1},
+                    {prompt: "", required: false, rows:1},
+                    {prompt: "", required: false, rows:1},
+                    {prompt: "", required: false, rows:1},
+                    {prompt: "", required: false, rows:1},
+                    {prompt: "", required: false, rows:1},
                 ],
                 data:{
                     internal_type: "question"
-                },
+                }
             };
-            
-            // push instructions to timeline
-            timeline.push(instruct);
-
-            // add current question to timeline
-            timeline.push(curr_question);
-        }
-
-        timeline_pusher();
-        
-        // 10-12 total scenarios a person
-
-        // run the study by Jonathan, make sure it's all good, then send to Jane
-
+            timeline.push(curr_question)
+            next_vign()
+        };
+        // push all of the vignettes to the timeline sequentially
+        do {
+            vignette_pusher();
+        } while (q_i < NUM);
+    
         //-------------------------TRIAL 2: EVALUATION OF PROMPT FAMILIARITY-------------------------------
 
-        // reset the questions to the beginning of the array
-        q_i = 0;
-
-        // instructions for evaluation of participant familiarity with prompt 
-        var eval_instruct = {
-            type: jsPsychInstructions,
-            data: {
-                internal_type: "instructions"
-            },
-            pages: function() {
-                // compiling all relavent questions
-                next_vign();
-                var story = "<h1>Please read the following story</h1> <br>" + q_array[q_i].vignette + "<br><br>";
-                var instruct = "Use the sliding scale to indicate hwo familiar you are with the scenario.";
-                return [story, instruct];
-            },
-            show_clickable_nav: true
+        // randomly sample 8 vignettes from the set of unfamiliar vignettes and 2 from the set of familiar vignettes
+        var q_array = []
+        for (var i of jsPsych.randomization.sampleWithoutReplacement(vignettes_familiar, 2)) {
+            q_array.push(i)
         }
-    
-        // push questions to the timeline
-        function timeline_pusher_eval() {
-            timeline.push(eval_instruct);
+        for (var i of jsPsych.randomization.sampleWithoutReplacement(vignettes, 8)) {
+            q_array.push(i)
+        }
+        console.log(q_array);
+        NUM = q_array.length;
+        q_i = 0; // initalize counter
 
-            // not going to encounter situations exactly like this - situations that are similar 
+        // instructions for evaluation part
+        var eval_instructions = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: "<h2>In this part, you will read a description of a scenario and then rate your familiarity with the scenario.</h2>" + 
+                "<p>Press any key to continue</p>",
+        }
+
+        timeline.push(eval_instructions);
+    
+        // push evaluation questions to the timeline
+        function eval_pusher() {
             var eval_trial = {
                 type: jsPsychHtmlSliderResponse,
-                prompt: "Please rate how familiar you are with this scenario on the sliding scale above." + 
-                "Extremely familiar means that you encounter scenarios like this almost everyday. Extremely unfamiliar means that you have never even heard of a scenario like this.",
+                stimulus: "<h1> Read the following story: </h1> <br>" + q_array[q_i].vignette + "<br><br>",
+                prompt: "<h4> Please rate how familiar you are with this scenario on the sliding scale above.</h4>" + 
+                "<p>Extremely familiar means that you encounter scenarios similar to this almost everyday.</p><p>Extremely unfamiliar means that you have never heard of a scenario similar to this.</p>",
                 require_movement: true,
+                slider_width: 600,
                 labels: ["Extremely Familiar", "Very Familiar", "Familiar", "Unfamiliar", "Very Unfamiliar", "Extremely Unfamiliar"],
                 data:{
                     internal_type: "slider_response"
@@ -234,9 +213,12 @@
                         
             // add current question to timeline
             timeline.push(eval_trial);
-
+            next_vign()
         }
-        timeline_pusher_eval();
+        // push all of the vignettes to the timeline sequentially
+        do {
+            eval_pusher();
+        } while (q_i < NUM);
     
         //-------------------------TRIAL ENDS HERE-------------------------------
         jsPsych.run(timeline);

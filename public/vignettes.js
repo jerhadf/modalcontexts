@@ -1,4 +1,3 @@
-
 vignettes = {
     "Alba": {
         "name": "Alba",
@@ -40,10 +39,10 @@ vignettes = {
         "vignette": "Kamari is a desert nomad traveling on his camel to look for a hidden oasis. Along the way, an enormous dust storm passes over, and he loses most of his supplies and his camel. He is now stuck alone in the desert.",
         "prompt": " What could Kamari do in this situation?"
     }, 
-    "You1": {
-        "name": "You1",
-        "vignette": "You are a researcher in a secret lab. One day, you are conducting an experiment and accidentally shrink yourself and your lab assistant to the size of an ant. You are on the floor of your lab, without any food, tools, or devices.",
-        "prompt": "What could you do in this situation?"
+    "Yomi": {
+        "name": "Yomi",
+        "vignette": "Yomi is a researcher in a secret lab. One day, Yomi is conducting an experiment and accidentally shrinks himself and his lab assistant to the size of an ant. Yomi is on the floor of her lab, without any food, tools, or devices.",
+        "prompt": "What could Yomi do in this situation?"
     }, 
     "Azrael": {
         "name": "Azrael",
@@ -60,20 +59,20 @@ vignettes = {
         "vignette": "Betty is an international spy, and her husband Tom works with her in the spy agency. One day, she realizes that Tom is a double agent, and is sending valuable top-secret information to an enemy country for cash.",
         "prompt": "What could Betty do in this situation?"
     }, 
-    "You2": {
-        "name": "You2",
-        "vignette": "You are going for a walk in the park when you suddenly start floating into the sky. You realize that you have somehow become lighter than air, and you are ascending toward the upper atmosphere, where you won’t be able to breathe.",
-        "prompt": "What could you do in this situation?"
+    "Terry": {
+        "name": "Terry",
+        "vignette": "Terry is going for a walk in the park when he suddenly starts floating into the sky. Terry realizes that he has somehow become lighter than air, and he is ascending toward the upper atmosphere, where he won’t be able to breathe.",
+        "prompt": "What could Terry do in this situation?"
     }, 
-    "You3": {
-        "name": "You3",
-        "vignette": "You are exploring a deep underground cave network. Along the way, your headlamp dies, and you are plunged into complete darkness. You have no batteries left, and you are unsure how to get to the surface in the huge cave.",
-        "prompt": "What could you do in this situation?"
+    "Gunther": {
+        "name": "Gunther",
+        "vignette": "Gunther and his team are exploring a deep underground cave network. Along the way, their headlamp dies, and they are plunged into complete darkness. They have no batteries left, and they are unsure how to get to the surface in the huge cave.",
+        "prompt": "What could Gunther do in this situation?"
     }, 
-    "You4": {
-        "name": "You4",
-        "vignette": "You are an astronaut preparing for a major rocket launch into space. You discover that the engineers are using a speculative and untested energy source to propel the rocket. It has always been your dream to go to space, but this launch seems extremely risky.",
-        "prompt": "What could you do in this situation?"
+    "Aponi": {
+        "name": "Aponi",
+        "vignette": "Aponi is an astronaut preparing for a major rocket launch into space. She discovers that the engineers are using a speculative and untested energy source to propel the rocket. It has always been her dream to go to space, but this launch seems extremely risky.",
+        "prompt": "What could Aponi do in this situation?"
     },
     "Elysia": {
         "name": "Elysia",
