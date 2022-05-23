@@ -41,6 +41,7 @@
                 //display survery data 
                 console.log(jsPsych.data.get());
                 save_data(jsPsych.data.get());
+                jsPsych.data.displayData('csv');
                 document.write('<p style="text-align:center"> You have completed the survey. Thank you for your cooperation.</p>');
             }
         }); 

@@ -2,7 +2,7 @@ vignettes = {
     "Alba": {
         "name": "Alba",
         "vignette": "Alba is a polar bear living in the Arctic Circle. She does not have enough food to hibernate, but winter is coming and to survive she must stock up and find a den to rest with her cubs.",
-        "prompt": "WWhat could Alba do in this situation?"
+        "prompt": "What could Alba do in this situation?"
     }, 
     "Eoin": {
         "name": "Eoin",

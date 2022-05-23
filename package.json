@@ -1,12 +1,12 @@
 {
   "name": "psych-survey",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "app.mjs",
   "repository": "https://github.com/jerhadf/modalcontexts/",
-  "author": "nathan-m-schneider-22 <nathan.m.schneider.22@dartmouth.edu>",
+  "author": "Jeremy Hadfield <jhadfield129@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development nodemon server.js --exec babel-node"
+    "start": "NODE_ENV=development nodemon app.mjs --exec babel-node"
   },
   "engines": {
     "node": ">=0.12"
