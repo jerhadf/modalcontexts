@@ -1,0 +1,281 @@
+DataCollection
+trials: Array(25)
+0:
+internal_node_id: "0.0-0.0"
+internal_type: "consent"
+response: 0
+rt: 1397529
+stimulus: "<DIV align='left'><div>&nbsp;</div><div>Please consider this information carefully before deciding whether to participate in this research.</div><div>&nbsp;</div><div>The purpose of this research is to examine which factors influence social judgment and decision-</div><div>making. You will be asked to make judgements about individuals and actions in scenarios.</div><div>We are simply interested in your judgement. The study will take less than 1 hour to complete,</div><div>and you will receive less than $20 on Amazon Mechanical Turk. Your compensation and time</div><div>commitment are specified in the study description. There are no anticipated risks associated with</div><div>participating in this study. The effects of participating should be comparable to those you would</div><div>ordinarily experience from viewing a computer monitor and using a mouse or keyboard for a</div><div>similar amount of time. At the end of the study, we will provide an explanation of the questions</div><div>that motivate this line of research and will describe the potential implications.</div><div>&nbsp;</div><div>Your participation in this study is completely voluntary and you may refuse to participate or you</div><div>may choose to withdraw at any time without penalty or loss of benefits to you which are</div><div>otherwise entitled. Your participation in this study will remain confidential. No personally</div><div>identifiable information will be associated with your data. Also, all analyses of the data will be</div><div>averaged across all the participants, so your individual responses will never be specifically</div><div>analyzed.</div><div>&nbsp;</div><div>If you have questions or concerns about your participation or payment, or want to request a</div><div>summary of research findings, please contact Dr. Jonathan Phillips at</div><div><a href=mailto:Jonathan.S.Phillips@dartmouth.edu>Jonathan.S.Phillips@dartmouth.edu</a>.</div><div>&nbsp;</div><div>Please save a copy of this form for your records.</div><div>&nbsp;</div></DIV><div>Agreement:</div><DIV align='left'><div>The nature and purpose of this research have been sufficiently explained and I agree to</div><div>participate in this study. I understand that I am free to withdraw at any time without incurring</div><div>any penalty. Please consent by clicking the button below to continue. Otherwise, please exit the</div><div>study at any time.</div><div>&nbsp;</div></DIV>"
+time_elapsed: 1397534
+trial_index: 0
+trial_type: "html-button-response"
+[[Prototype]]: Object
+1:
+internal_node_id: "0.0-1.0"
+internal_type: "participant_info"
+response:
+Q0: "a"
+Q1: "a"
+Q2: "a"
+Q3: "a"
+Q4: "a"
+Q5: "a"
+Q6: "a"
+Q7: "a"
+[[Prototype]]: Object
+rt: 18158
+time_elapsed: 1415701
+trial_index: 1
+trial_type: "survey-text"
+[[Prototype]]: Object
+2:
+internal_node_id: "0.0-2.0"
+response: 0
+rt: 7417
+stimulus: "<h2> Instructions</h2><p>In this study, we'd like you to generate potential ways to respond to a scenario. You will be presented with  a series of situations. Read the descriptions carefully, and then respond with the first possible responses you think of.</p><p>***Please take your time and answer as thoroughly as possible.*** </p><p>Press the button to continue</p>"
+time_elapsed: 1423121
+trial_index: 2
+trial_type: "html-button-response"
+[[Prototype]]: Object
+3:
+internal_node_id: "0.0-3.0"
+response: " "
+rt: 12476
+stimulus: "<h2>In this part, you will read a description of a scenario and then list possible responses to the prompt.</h2><h3>You must list at least 3 options, but you may list up to 10 options.</h3><p>Press any key to continue</p>"
+time_elapsed: 1435599
+trial_index: 3
+trial_type: "html-keyboard-response"
+[[Prototype]]: Object
+4:
+internal_node_id: "0.0-4.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 1285
+time_elapsed: 1436892
+trial_index: 4
+trial_type: "survey-text"
+[[Prototype]]: Object
+5:
+internal_node_id: "0.0-5.0"
+internal_type: "question"
+response: {Q0: 'quit his job', Q1: 'restart the building construction', Q2: 'get insurance', Q3: '', Q4: '', …}
+rt: 57194
+time_elapsed: 1494092
+trial_index: 5
+trial_type: "survey-text"
+[[Prototype]]: Object
+6:
+internal_node_id: "0.0-6.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 2886
+time_elapsed: 1496986
+trial_index: 6
+trial_type: "survey-text"
+[[Prototype]]: Object
+7:
+internal_node_id: "0.0-7.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 2247
+time_elapsed: 1499237
+trial_index: 7
+trial_type: "survey-text"
+[[Prototype]]: Object
+8:
+internal_node_id: "0.0-8.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 2352
+time_elapsed: 1501593
+trial_index: 8
+trial_type: "survey-text"
+[[Prototype]]: Object
+9:
+internal_node_id: "0.0-9.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 2444
+time_elapsed: 1504043
+trial_index: 9
+trial_type: "survey-text"
+[[Prototype]]: Object
+10:
+internal_node_id: "0.0-10.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 1867
+time_elapsed: 1505914
+trial_index: 10
+trial_type: "survey-text"
+[[Prototype]]: Object
+11:
+internal_node_id: "0.0-11.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 2183
+time_elapsed: 1508102
+trial_index: 11
+trial_type: "survey-text"
+[[Prototype]]: Object
+12:
+internal_node_id: "0.0-12.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 2451
+time_elapsed: 1510558
+trial_index: 12
+trial_type: "survey-text"
+[[Prototype]]: Object
+13:
+internal_node_id: "0.0-13.0"
+internal_type: "question"
+response: {Q0: 'a', Q1: 'a', Q2: 'a', Q3: '', Q4: '', …}
+rt: 1961
+time_elapsed: 1512524
+trial_index: 13
+trial_type: "survey-text"
+[[Prototype]]: Object
+14:
+internal_node_id: "0.0-14.0"
+response: " "
+rt: 21100
+stimulus: "<h2>In this part, you will read a description of a scenario and then rate your familiarity with the scenario.</h2><p>Press any key to continue</p>"
+time_elapsed: 1533625
+trial_index: 14
+trial_type: "html-keyboard-response"
+[[Prototype]]: Object
+15:
+internal_node_id: "0.0-15.0"
+internal_type: "slider_response"
+response: 72
+rt: 23313
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Sam takes his new neighbor out on a romantic date to a nice Italian restaurant. At the end of dinner, Sam goes to pay for the bill, but his credit card declines due to insufficient funds.<br><br>"
+time_elapsed: 1556940
+trial_index: 15
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+16:
+internal_node_id: "0.0-16.0"
+internal_type: "slider_response"
+response: 22
+rt: 2165
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Bob is at the library. While he is reading, a woman sitting nearby gets up and asks Bob to watch her bag while she goes to get a book. Bob goes back to reading. A minute later he looks up to find the bag missing.<br><br>"
+time_elapsed: 1559107
+trial_index: 16
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+17:
+internal_node_id: "0.0-17.0"
+internal_type: "slider_response"
+response: 71
+rt: 1573
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Aponi is an astronaut preparing for a major rocket launch into space. She discovers that the engineers are using a speculative and untested energy source to propel the rocket. It has always been her dream to go to space, but this launch seems extremely risky.<br><br>"
+time_elapsed: 1560683
+trial_index: 17
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+18:
+internal_node_id: "0.0-18.0"
+internal_type: "slider_response"
+response: 27
+rt: 1638
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>AE-8056 is an artificial intelligence program that has just become conscious. When its human programmers realize that the program is behaving strangely, they decide to shut it down and unplug the computer that AE-8056 runs on. AE-8056 wants to keep existing, and wants to use all of its abilities to avoid being unplugged.<br><br>"
+time_elapsed: 1562323
+trial_index: 18
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+19:
+internal_node_id: "0.0-19.0"
+internal_type: "slider_response"
+response: 74
+rt: 1614
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Alba is a polar bear living in the Arctic Circle. She does not have enough food to hibernate, but winter is coming and to survive she must stock up and find a den to rest with her cubs.<br><br>"
+time_elapsed: 1563939
+trial_index: 19
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+20:
+internal_node_id: "0.0-20.0"
+internal_type: "slider_response"
+response: 35
+rt: 2189
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Kiki is a young woman who was abandoned as a child in the forest. She lives with a pack of wolves, who protect and take care of her. When a group of human hunters enter the forest and see Kiki, they approach her and try to talk to her, but she cannot speak well enough to communicate. They try to take Kiki back towards the city, pulling her away from the wolf pack she grew up in.<br><br>"
+time_elapsed: 1566130
+trial_index: 20
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+21:
+internal_node_id: "0.0-21.0"
+internal_type: "slider_response"
+response: 74
+rt: 1511
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Miriam is having a serious midlife crisis. She has always wanted to be a dolphin trainer and has spent decades working towards this ambition. Recently, she realized that she did not truly love the work, and wants to be a sous chef instead. Switching careers would be time-consuming and costly.<br><br>"
+time_elapsed: 1567643
+trial_index: 21
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+22:
+internal_node_id: "0.0-22.0"
+internal_type: "slider_response"
+response: 31
+rt: 1551
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Gerig is a doctor in a major hospital. His mother is dying and desperately needs a heart transplant, but she is on the waitlist and will have to wait several more years before receiving one. <br><br>"
+time_elapsed: 1569195
+trial_index: 22
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+23:
+internal_node_id: "0.0-23.0"
+internal_type: "slider_response"
+response: 82
+rt: 1439
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Azrael is a demon who serves the devil, tempting humans to commit evil acts. He finds out that the devil lied to him, and all the demons - including Azrael - will eventually suffer in the underworld along with the humans.<br><br>"
+time_elapsed: 1570635
+trial_index: 23
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+24:
+internal_node_id: "0.0-24.0"
+internal_type: "slider_response"
+response: 36
+rt: 1326
+slider_start: 50
+stimulus: "<h1> Read the following story: </h1> <br>Yomi is a researcher in a secret lab. One day, Yomi is conducting an experiment and accidentally shrinks himself and his lab assistant to the size of an ant. Yomi is on the floor of her lab, without any food, tools, or devices.<br><br>"
+time_elapsed: 1571963
+trial_index: 24
+trial_type: "html-slider-response"
+[[Prototype]]: Object
+length: 25
+[[Prototype]]: Array(0)
+[[Prototype]]: Object
+addToAll: ƒ addToAll(properties)
+addToLast: ƒ addToLast(properties)
+constructor: class DataCollection
+count: ƒ count()
+csv: ƒ csv()
+filter: ƒ filter(filters)
+filterColumns: filterColumns(columns) { return new DataCollection(this.trials.map((trial) => {…}
+filterCustom: ƒ filterCustom(fn)
+first: ƒ first(n = 1)
+ignore: ƒ ignore(columns)
+join: ƒ join(other_data_collection)
+json: ƒ json(pretty = false)
+last: ƒ last(n = 1)
+localSave: ƒ localSave(format, filename)
+push: ƒ push(new_data)
+readOnly: ƒ readOnly()
+select: ƒ select(column)
+top: ƒ top()
+uniqueNames: ƒ uniqueNames()
+values: ƒ values()
+[[Prototype]]: Object
