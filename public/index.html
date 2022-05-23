@@ -2,22 +2,19 @@
 <html>
     <head>
         <title>Modal Contexts Study</title>
-        <script src="jspsych-6.1.0/jspsych.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-categorize-html.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-image-button-response.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-html-button-response.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-survey-html-form.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-select.js"></script>
-        <script src="jspsych-6.1.0/plugins/jspsych-survey-text.js"></script>
+        <!-- IMPORT JSPSYCH & plugin- -->
+        <script src="jspsych/jspsych.js"></script>
+        <script src="jspsych/plugin-html-keyboard-response.js"></script>
+        <script src="jspsych/plugin-html-button-response.js"></script>
+        <script src="jspsych/plugin-instructions.js"></script>
+        <script src="jspsych/plugin-html-slider-response.js"></script>
+        <script src="jspsych/plugin-survey-text.js"></script>
+        <!-- IMPORT JAVASCRIPT MODULES -->
         <script type="text/javascript" src="vignettes.js"></script>
         <script type="text/javascript" src="bdi_options.js"></script>
-        <script type="text/javascript" src="newtestdata.js"></script>
-        <script type="module" src="parseData.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
-        <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+        <!--  IMPORT STYLESHEETS -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  
+        <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="/css/style.css">
     </head>
     
@@ -186,7 +183,7 @@
             timeline.push(curr_question);
 
         }
-        
+
         timeline_pusher();
         
         // 10-12 total scenarios a person
@@ -237,6 +234,7 @@
         timeline_pusher_eval();
     
         //-------------------------TRIAL ENDS HERE-------------------------------
+        jsPsych.run(timeline);
 
     </script>
     
