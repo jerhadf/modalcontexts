@@ -10,19 +10,19 @@ import makeQuery from './parseData';
 dotenv.config();
 
 
-var con = mysql.createConnection({
-    host: process.env.HOST,
-    user: process.env.DBUSER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-  });
+// var con = mysql.createConnection({
+//     host: process.env.HOST,
+//     user: process.env.DBUSER,
+//     password: process.env.PASSWORD,
+//     database: process.env.DATABASE
+//   });
   
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected to database!");
-  });
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log("Connected to database!");
+// });
   
-  const app = express();
+const app = express();
 
 app.use(express.static('public'));
 
@@ -45,8 +45,6 @@ app.post('/data', (req, res) => {
         }
     res.send('Data received!');
 });
-
-
 
 
 // START THE SERVER

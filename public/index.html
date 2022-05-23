@@ -18,15 +18,42 @@
         <script type="module" src="parseData.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
         <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
     </head>
     
     <body></body>
     
     <script>
+
+        // ---------------------------------JSPSYCH INITIALIZATION----------------------------------------------
+        /* This function will allow us to send the data from the completed survey to the server */
+        function save_data(data) {
+            url = location + "data"
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({data}));
+        }
+
+        /* This will allow us to use jspsych moving forward, and it also configures certain display settings, 
+        as well as what will happen when the survey is completed. 
+        */
+        const jsPsych = initJsPsych({
+            show_progress_bar: true,
+            // override_safe_mode:true, 
+            on_finish: function(){
+                //display survery data 
+                console.log(jsPsych.data.get());
+                save_data(jsPsych.data.get());
+                document.write('<p style="text-align:center"> You have completed the survey. Thank you for your cooperation.</p>');
+            }
+        }); 
+
+        // --------------------------------STUDY INITIALIZATION----------------------------------------------
+    
         /* create timeline */
         var timeline = [];
-    
+
         //Global variables
         vignettes = [vignettes.Alba, vignettes.Eoin, vignettes.Triss, vignettes.Alberto, vignettes.Miriam, vignettes.Ae8056, vignettes.Gerig, vignettes.You1, vignettes.Azrael, vignettes.Kiki, vignettes.Betty, vignettes.You2, vignettes.You3, vignettes.You4, vignettes.Elysia, vignettes.Tobi, vignettes.Duncan];
         VIGNETTE_AMOUNT = vignettes.length;
@@ -120,6 +147,9 @@
                 // compiling all relavent questions
                 next_vign();
                 var story = "<h1>Please read the following story</h1> <br>" + q_array[q_i].vignette + "<br><br>";
+                // make 10 text boxes instead of comma seperate
+                // please tell us some things that [person name] could do in the situation
+                // add in the scenarios - 3 familiar and 9 unfamiliar scenarios
                 var instruct = "<h1>Please list some options that could possibly be taken in this situation. Seperate each different option with a comma.</h1> <br>";
                 return [story, instruct];
             },
@@ -156,8 +186,12 @@
             timeline.push(curr_question);
 
         }
+        
         timeline_pusher();
+        
+        // 10-12 total scenarios a person
 
+        // run the study by Jonathan, make sure it's all good, then send to Jane
 
         //-------------------------TRIAL 2: EVALUATION OF PROMPT FAMILIARITY-------------------------------
 
@@ -184,6 +218,7 @@
         function timeline_pusher_eval() {
             timeline.push(eval_instruct);
 
+            // not going to encounter situations exactly like this - situations that are similar 
             var eval_trial = {
                 type: 'html-slider-response',
                 prompt: "Please rate how familiar you are with this scenario on the sliding scale above." + 
@@ -203,26 +238,6 @@
     
         //-------------------------TRIAL ENDS HERE-------------------------------
 
-        // end of experiment 
-        /* Function to post the data*/
-        function save_data(data) {
-            url = location+"data"
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({data}));
-        }
-
-        /* start the experiment */
-        jsPsych.init({
-            timeline: timeline,
-            on_finish: function() {
-                jsPsych.data.displayData();
-                console.log(jsPsych.data.get().values());
-                //for server
-                save_data(jsPsych.data.get().values());
-            }
-        });
     </script>
     
     </html>
