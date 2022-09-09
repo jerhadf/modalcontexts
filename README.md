@@ -1,6 +1,6 @@
-# psych-survey
+# modal-contexts
 
-This repo is a template for COGS department surveys.
+This repo is an experiment to test the effects of context and familiarity on modal cognition, based on a template for COGS department surveys. 
 
 ## Stack
 Instead of a single html page, this repo works as a Node.js Express server to
